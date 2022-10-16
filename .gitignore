@@ -9,7 +9,6 @@ build/
 .idea
 /.VSCodeCounter/
 /types
-/typechain-types
 /tasks/create-profile.ts
 /tasks/post.ts
 /tasks/follow.ts
