@@ -7,15 +7,16 @@ COPY package*.json ./
 COPY tsconfig*.json ./
 
 RUN npm ci --quiet
+RUN npm install hardhat
 
 FROM node:16
 
 WORKDIR /src
 
+COPY . .
 COPY --from=build-deps /usr/bin/solc /usr/bin/solc
 COPY --from=build-packages /node_modules /node_modules
-COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-USER node
+RUN npm run compile
 
-ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+ENTRYPOINT ["npx", "hardhat", "node"]
